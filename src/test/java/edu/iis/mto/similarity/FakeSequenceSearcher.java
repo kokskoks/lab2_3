@@ -7,7 +7,15 @@ import java.util.Arrays;
 
 public class FakeSequenceSearcher implements SequenceSearcher {
     public SearchResult search(int i, int[] ints) {
-        boolean isFound = Arrays.asList(ints).contains(i);
+        boolean isFound = false;
+
+        for(int number : ints){
+            if(number == i){
+                isFound = true;
+                break;
+            }
+        }
+
         return new FakeSearchResult(isFound);
     }
 }
