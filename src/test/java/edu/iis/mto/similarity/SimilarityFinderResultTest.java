@@ -36,6 +36,24 @@ public class SimilarityFinderResultTest {
         assertThat(similarity, is(1.0d));
     }
 
+    @Test
+    public void sequencesWithoutCommonElements(){
+        double similarity = similarityFinder.calculateJackardSimilarity(SEQUENCE_TWO,SEQUENCE_THREE);
+        assertThat(similarity, is(0.0d));
+    }
 
+    @Test
+    public void sequenceIncludesOtherSequence(){
+        double similarity = similarityFinder.calculateJackardSimilarity(SEQUENCE_TWO,SEQUENCE_ONE);
+        double expectedSimilarity = SEQUENCE_TWO.length / (double)SEQUENCE_ONE.length;
+        assertThat(similarity, is(expectedSimilarity));
+    }
+
+    @Test
+    public void sequencesHaveSomeCommonMembers(){
+        double similarity = similarityFinder.calculateJackardSimilarity(SEQUENCE_THREE,SEQUENCE_ONE);
+        double expectedSimilarity = 1 / (double)(SEQUENCE_ONE.length + SEQUENCE_THREE.length - 1);
+        assertThat(similarity, is(expectedSimilarity));
+    }
 
 }
